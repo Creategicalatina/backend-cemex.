@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="back-end-cemex20220327145506" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\silvi\\Documents\\cemex\\back-end-cemex\\back-end-cemex\\obj\\Release\\net6\.0\\win-x86\\PubTmp\\Out\\$" />
+  </parameter>
+  <parameter name="back_end_cemex.ApplicationDbContext" description="" value="Data Source=tcp:webapicemexdbserver.database.windows.net,1433;Initial Catalog=cemexdb_04;User Id=silviotista@webapicemexdbserver;Password=XqlpdfBGRr@GdnoYD" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\silvi\\Documents\\cemex\\back-end-cemex\\back-end-cemex\\obj\\Release\\net6\.0\\win-x86\\PubTmp\\EFSQLScripts\\back_end_cemex\.ApplicationDbContext\.sql$" />
+  </parameter>
+</parameters>

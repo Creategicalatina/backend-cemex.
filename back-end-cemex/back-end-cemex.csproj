@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>back_end_cemex</RootNamespace>
+    <UserSecretsId>19238614-1092-444e-a02f-a4fca5a01509</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/28cda811-98fe-41bc-abd3-ed524f97b7b1/resourceGroups/WebApiCemex/providers/microsoft.insights/components/WebApiCemex</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.11.0" />
+    <PackageReference Include="Azure.Storage.Files.Shares" Version="12.1.0" />
+    <PackageReference Include="Azure.Storage.Queues" Version="12.2.0" />
+    <PackageReference Include="MailKit" Version="3.1.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Azure" Version="1.0.0" />
+    <PackageReference Include="ServiceStack.Interfaces" Version="6.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Validations\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo se usa en el proceso de publicación y empaquetado del proyecto web. Para personalizar el comportamiento de este proceso,
+edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 para obtener más información. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA7jzSm8VmjUO4zk4wNv5ohAAAAAACAAAAAAAQZgAAAAEAACAAAABhXby8AA1X2E4r/dZPZf00Pci8K4pHLa0od1wCNlamLQAAAAAOgAAAAAIAACAAAACq8oYzeAjVNYXO3jU8N0bJvu5Xy5yp/+qlvJ9nEZgetIAAAADGo4ujqx+ROWfPe3019BBmS6228+N0ZiLXwCATeD5kbDAIJhyd2/tSKHzI/TUpv3UBsbyiWLYdLCz0vmPs214XY3odxWzJPr2dcirpx9muYKnrcR3wBs956P7bfbW5m599N7FKbDsnxnNcPu452adxTeISrZhvWgOk9Y+CY+fyoUAAAAB6cRVAVlTsld/Qkygin2aZ+9UHGou2TjVr9Ha+GCkLHnirr14Vily2f+G+LHSgmxOLijdBRNLcDdNh0Rw5nud8</EncryptedPassword>
+    <History>False|2022-04-08T22:30:04.8894036Z;False|2022-04-08T17:28:16.0592832-05:00;False|2022-04-08T17:25:10.7921210-05:00;False|2022-04-08T17:18:26.2881414-05:00;False|2022-04-08T17:16:31.0475719-05:00;False|2022-04-08T16:46:37.4043018-05:00;True|2022-04-07T15:09:57.0913512-05:00;False|2022-04-07T14:54:33.3740365-05:00;False|2022-04-07T14:07:11.7290229-05:00;False|2022-04-07T14:03:49.2751322-05:00;True|2022-03-30T11:44:56.8980718-05:00;True|2022-03-30T11:16:25.0531682-05:00;True|2022-03-28T21:01:39.7644074-05:00;True|2022-03-28T19:58:26.2829877-05:00;True|2022-03-28T19:22:02.5049498-05:00;False|2022-03-28T19:17:42.6454977-05:00;False|2022-03-28T19:13:54.8699561-05:00;False|2022-03-28T19:03:36.3931126-05:00;False|2022-03-28T18:58:46.2232279-05:00;False|2022-03-28T18:53:44.0464341-05:00;False|2022-03-28T18:50:04.5976603-05:00;False|2022-03-28T18:47:54.6883289-05:00;False|2022-03-28T18:47:04.0980074-05:00;False|2022-03-28T18:44:07.4202384-05:00;False|2022-03-28T18:42:22.7580036-05:00;True|2022-03-28T10:36:04.8389242-05:00;True|2022-03-28T10:30:23.4314000-05:00;False|2022-03-28T10:29:27.7724620-05:00;True|2022-03-28T10:21:36.0297516-05:00;True|2022-03-28T10:01:24.9306275-05:00;True|2022-03-28T09:11:20.7146072-05:00;True|2022-03-28T09:05:09.3495610-05:00;True|2022-03-27T17:18:10.0390387-05:00;True|2022-03-27T17:16:54.5042385-05:00;True|2022-03-27T17:11:51.7090374-05:00;False|2022-03-27T17:08:52.3068888-05:00;True|2022-03-27T17:08:06.2995768-05:00;True|2022-03-27T17:02:20.2906834-05:00;True|2022-03-27T16:43:00.5614636-05:00;True|2022-03-27T16:32:30.7179290-05:00;True|2022-03-27T16:29:17.3556186-05:00;True|2022-03-27T16:26:38.8244942-05:00;True|2022-03-27T16:18:15.4029337-05:00;True|2022-03-27T16:01:00.9634695-05:00;False|2022-03-27T15:59:41.2698998-05:00;False|2022-03-27T15:58:46.8419277-05:00;True|2022-03-27T15:50:20.3964867-05:00;True|2022-03-27T15:39:35.7171588-05:00;True|2022-03-27T15:13:11.1479684-05:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="APPLICATIONINSIGHTS_CONNECTION_STRING">
+      <Value>Data Source=tcp:back-end-cemexdbserver.database.windows.net,1433%3bInitial Catalog=back-end-cemex_db%3bUser Id=silviotista%40back-end-cemexdbserver%3bPassword=XqlpdfBGRr%40GdnoYD</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="back_end_cemex.ApplicationDbContext">
+      <Value>Data Source=tcp:webapicemexdbserver.database.windows.net,1433%3bInitial Catalog=cemexdb_04%3bUser Id=silviotista%40webapicemexdbserver%3bPassword=XqlpdfBGRr%40GdnoYD</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

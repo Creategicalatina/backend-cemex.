@@ -1,0 +1,52 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "restored": true,
+      "restoreTime": "2022-03-27T19:58:57.5423886Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2022-03-27T20:09:11.0172606Z"
+    },
+    "storage1": {
+      "restored": true,
+      "restoreTime": "2022-04-07T19:39:31.0956209Z"
+    },
+    "appInsights1": {
+      "restored": true,
+      "restoreTime": "2022-04-07T19:38:15.1122779Z"
+    }
+  },
+  "parameters": {
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "28cda811-98fe-41bc-abd3-ed524f97b7b1"
+    },
+    "appInsights1.resourceGroupName": {
+      "Name": "appInsights1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "WebApiCemex"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "WebApiCemex"
+    },
+    "storage1.resourceGroupName": {
+      "Name": "storage1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "CemexCargaApi"
+    },
+    "storage1.subscriptionId": {
+      "Name": "storage1.subscriptionId",
+      "Type": "subscription",
+      "Value": "28cda811-98fe-41bc-abd3-ed524f97b7b1"
+    },
+    "appInsights1.subscriptionId": {
+      "Name": "appInsights1.subscriptionId",
+      "Type": "subscription",
+      "Value": "28cda811-98fe-41bc-abd3-ed524f97b7b1"
+    }
+  }
+}

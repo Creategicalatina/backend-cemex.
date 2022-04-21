@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "ignored": "true",
+      "suggestion": "true",
+      "type": "identityapp",
+      "connectionId": ""
+    },
+    "appInsights1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/microsoft.insights/components/WebApiCemex",
+      "type": "appInsights.azure",
+      "connectionId": "APPLICATIONINSIGHTS_CONNECTION_STRING"
+    },
+    "storage1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/cemexcargaapi",
+      "type": "storage.azure",
+      "connectionId": "AzureStorage"
+    },
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/webapicemexdbserver/databases/cemex_documents_04",
+      "type": "mssql.azure",
+      "connectionId": "defaultConnection"
+    }
+  }
+}
