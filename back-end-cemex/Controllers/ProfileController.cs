@@ -30,6 +30,9 @@ namespace back_end_cemex.Controllers
             this.storageArchives = storageArchives;
         }
 
+        /*=============================================
+            DATOS DEL USUARIO
+        =============================================*/
         [HttpGet("get-data-user/{email}", Name = "get-data-user")]
         public async Task<ActionResult<ResponseAuth>> Get(string email)
         {
@@ -38,17 +41,15 @@ namespace back_end_cemex.Controllers
             var driver = await context.Drivers.FirstOrDefaultAsync(x => x.User == user);
             var conveyor = await context.Conveyors.Include(with => with.TypeConveyor).Include(with => with.Company).FirstOrDefaultAsync(x => x.User == user);
 
-            if (conveyor.Company == null)
+            if (roles[0] == "AdminLogis")
             {
                 return new ResponseAuth()
                 {
                     User = user,
                     Roles = (List<string>)roles,
-                    IdDriver = driver.IdDriver,
-                    CodeSap = driver.CodeSap,
-                    Status = driver.Status,
-                    DocumentDrivinglicenseFrontal = driver.DocumentDrivinglicenseFrontal,
-                    DocumentDrivinglicenseBack = driver.DocumentDrivinglicenseBack,
+                    CompanyId = conveyor.Company.IdCompany,
+                    CompanyName = conveyor.Company.NameCompany,
+                    DocumentCompany = conveyor.Company.DocumentCompany
                 };
             }
             else
@@ -62,8 +63,7 @@ namespace back_end_cemex.Controllers
                     Status = driver.Status,
                     DocumentDrivinglicenseFrontal = driver.DocumentDrivinglicenseFrontal,
                     DocumentDrivinglicenseBack = driver.DocumentDrivinglicenseBack,
-                    CompanyId = conveyor.Company.IdCompany,
-                    CompanyName = conveyor.Company.NameCompany,
+                    DocumentSecurityCard = driver.DocumentSecurityCard,
                 };
             }
 
@@ -72,7 +72,73 @@ namespace back_end_cemex.Controllers
 
             return mapper.Map<DriverListDTO>(driver);*/
         }
+        /*=============================================
+            ACTUALIZAR CARNE DE SEGURIDAD
+        =============================================*/
+        [HttpPut("update-photo-security-card/{id:int}")]
+        public async Task<ActionResult> UpdatePhotoSecurityCard([FromForm] UpdatePhotoSecurityCardDTO updatePhotoSecurityCardDTO, int id)
+        {
+            var exist = await context.Drivers.AnyAsync(driver => driver.IdDriver == id);
+            var randomString = RandomString(10);
+            if (!exist)
+            {
+                return NotFound("No existe conductor con el id ingresado");
+            }
 
+            var urlDocumentSecurityCard = "";
+     
+
+            /*=============================================
+              SI EL USUARIO NO TIENE CARNE DE SEGURIDAD
+             =============================================*/
+            if (updatePhotoSecurityCardDTO.UrlActualSecurityCard == null)
+            {
+                if (updatePhotoSecurityCardDTO.DocumentSecurityCard != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await updatePhotoSecurityCardDTO.DocumentSecurityCard.CopyToAsync(memoryStream);
+                        var contenido = memoryStream.ToArray();
+                        var extension = Path.GetExtension(updatePhotoSecurityCardDTO.DocumentSecurityCard.FileName);
+                        urlDocumentSecurityCard = await storageArchives.SaveArchive(contenido, $"security-card-{updatePhotoSecurityCardDTO.FirstName}-{updatePhotoSecurityCardDTO.LastName}-{randomString}", extension,
+                            contenedor, updatePhotoSecurityCardDTO.DocumentSecurityCard.ContentType);
+                    }
+                }
+            }
+
+            /*=============================================
+              ACTUALIZAMOS EL DOCUMENTO DE LICENCIA FRONTAL
+             =============================================*/
+            if (updatePhotoSecurityCardDTO.DocumentSecurityCard != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await updatePhotoSecurityCardDTO.DocumentSecurityCard.CopyToAsync(memoryStream);
+                    var contenido = memoryStream.ToArray();
+                    var extension = Path.GetExtension(updatePhotoSecurityCardDTO.DocumentSecurityCard.FileName);
+                    urlDocumentSecurityCard = await storageArchives.EditArchive(contenido, $"security-card-{updatePhotoSecurityCardDTO.FirstName}-{updatePhotoSecurityCardDTO.LastName}-{randomString}", extension,
+                        contenedor, updatePhotoSecurityCardDTO.UrlActualSecurityCard, updatePhotoSecurityCardDTO.DocumentSecurityCard.ContentType);
+                }
+            }
+
+  
+
+            var result = await context.Drivers.SingleOrDefaultAsync(driver => driver.IdDriver == id);
+            if (result != null)
+            {
+                result.DocumentSecurityCard = urlDocumentSecurityCard;
+                context.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        /*=============================================
+            ACTUALIZAR LICENCIA DE CONDUCCIÓN
+        =============================================*/
         [HttpPut("{id:int}")] 
         public async Task<ActionResult> UpdatePhotoLicence([FromForm]UpdatePhotoLicenceDTO updatePhotoLicenceDTO, int id)
         {
@@ -162,6 +228,9 @@ namespace back_end_cemex.Controllers
                 return BadRequest();
             }
         }
+        /*=============================================
+            ACTUALIZAR CEDULA DE CIUDADANIA
+        =============================================*/
         [HttpPut("update-photo-identity-card/{email}")]
         public async Task<ActionResult> UpdatePhotoIdentityCard([FromForm] UpdatePhotoIdentityCardDTO updatePhotoIdentityCardDTO, string email)
         {
@@ -243,6 +312,71 @@ namespace back_end_cemex.Controllers
             {
                 result.DocumentIdentityCardFrontal = urlDocumentIdentityCardFrontal;
                 result.DocumentIdentityCardBack = urlDocumentIdentityCardBack;
+                context.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        /*=============================================
+            ACTUALIZAR DOCUMENTO DE LA EMPRESA
+        =============================================*/
+        [HttpPut("update-photo-document-company/{id:int}")]
+        public async Task<ActionResult> UpdatePhotoDocumentCompany([FromForm] UpdatePhotoDocumentCompanyDTO updatePhotoDocumentCompanyDTO, int id)
+        {
+            var exist = await context.Companies.AnyAsync(company => company.IdCompany == id);
+            var randomString = RandomString(10);
+            if (exist == null)
+            {
+                return NotFound("No existe la empresa");
+            }
+
+            var urlDocumentCompanyFrontal = "";
+          
+
+            /*=============================================
+              SI EL USUARIO NO TIENE FOTO DOCUMENTO EMPRESA
+             =============================================*/
+            if (updatePhotoDocumentCompanyDTO.UrlActualDocumentCompany == null)
+            {
+                /*=============================================
+                    GUARDAMOS EL DOCUMENTO DE LA EMPRESA
+                =============================================*/
+                if (updatePhotoDocumentCompanyDTO.DocumentCompany != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await updatePhotoDocumentCompanyDTO.DocumentCompany.CopyToAsync(memoryStream);
+                        var contenido = memoryStream.ToArray();
+                        var extension = Path.GetExtension(updatePhotoDocumentCompanyDTO.DocumentCompany.FileName);
+                        urlDocumentCompanyFrontal = await storageArchives.SaveArchive(contenido, $"document-company-{updatePhotoDocumentCompanyDTO.FirstName}-{updatePhotoDocumentCompanyDTO.LastName}-{randomString}", extension,
+                            contenedor, updatePhotoDocumentCompanyDTO.DocumentCompany.ContentType);
+                    }
+                }
+            }
+
+            /*=============================================
+              ACTUALIZAMOS EL DOCUMENTO DE LA EMPRESA
+             =============================================*/
+            if (updatePhotoDocumentCompanyDTO.DocumentCompany != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await updatePhotoDocumentCompanyDTO.DocumentCompany.CopyToAsync(memoryStream);
+                    var contenido = memoryStream.ToArray();
+                    var extension = Path.GetExtension(updatePhotoDocumentCompanyDTO.DocumentCompany.FileName);
+                    urlDocumentCompanyFrontal = await storageArchives.EditArchive(contenido, $"document-company-{updatePhotoDocumentCompanyDTO.FirstName}-{updatePhotoDocumentCompanyDTO.LastName}-{randomString}", extension,
+                        contenedor, updatePhotoDocumentCompanyDTO.UrlActualDocumentCompany, updatePhotoDocumentCompanyDTO.DocumentCompany.ContentType);
+                }
+            }
+
+
+            var result = await context.Companies.SingleOrDefaultAsync(company => company.IdCompany == id);
+            if (result != null)
+            {
+                result.DocumentCompany = urlDocumentCompanyFrontal;
                 context.SaveChanges();
                 return Ok();
             }

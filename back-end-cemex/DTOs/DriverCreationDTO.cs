@@ -44,5 +44,6 @@ namespace back_end_cemex.DTOs
         public IFormFile? DocumentDrivinglicenseBack { get; set; }
         public IFormFile? DocumentIdentityCardFrontal { get; set; }
         public IFormFile? DocumentIdentityCardBack { get; set; }
+        public IFormFile? DocumentSecurityCard { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace back_end_cemex.Entities
         public bool Status { get; set; }
         public string? DocumentDrivinglicenseFrontal { get; set; }
         public string? DocumentDrivinglicenseBack { get; set; }
+        public string? DocumentSecurityCard { get; set; }
 
     }
 }

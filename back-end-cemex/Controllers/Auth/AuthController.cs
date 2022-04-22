@@ -201,36 +201,14 @@ namespace back_end_cemex.Controllers.Auth
                 expires: expiracion, signingCredentials: creds);
 
             var driver = await context.Drivers.FirstOrDefaultAsync(x => x.User == user);
-            var conveyor = await context.Conveyors.Include(with => with.TypeConveyor).Include(with => with.Company).FirstOrDefaultAsync(x => x.User == user);
 
-            if(conveyor.Company == null)
+            if(roles[0] == "AdminLogis")
             {
+                var conveyor = await context.Conveyors.Include(with => with.TypeConveyor).Include(with => with.Company).FirstOrDefaultAsync(x => x.User == user);
                 return new ResponseAuth()
                 {
                     User = user,
                     Roles = (List<string>)roles,
-                    IdDriver = driver.IdDriver,
-                    CodeSap = driver.CodeSap,
-                    Status = driver.Status,
-                    DocumentDrivinglicenseFrontal = driver.DocumentDrivinglicenseFrontal,
-                    DocumentDrivinglicenseBack = driver.DocumentDrivinglicenseBack,
-                    IsAuthenticated = true,
-                    Token = new JwtSecurityTokenHandler().WriteToken(securityToken),
-                    Expiracion = expiracion,
-
-                };
-            }
-            else
-            {
-                return new ResponseAuth()
-                {
-                    User = user,
-                    Roles = (List<string>)roles,
-                    IdDriver = driver.IdDriver,
-                    CodeSap = driver.CodeSap,
-                    Status = driver.Status,
-                    DocumentDrivinglicenseFrontal = driver.DocumentDrivinglicenseFrontal,
-                    DocumentDrivinglicenseBack = driver.DocumentDrivinglicenseBack,
                     CompanyId = conveyor.Company.IdCompany,
                     CompanyName = conveyor.Company.NameCompany,
 
@@ -240,6 +218,42 @@ namespace back_end_cemex.Controllers.Auth
 
                 };
             }
+
+            if (roles[0] == "ManTruck")
+            {
+                var conveyor = await context.Conveyors.Include(with => with.TypeConveyor).Include(with => with.Company).FirstOrDefaultAsync(x => x.User == user);
+                return new ResponseAuth()
+                {
+                    User = user,
+                    Roles = (List<string>)roles,
+                    IdDriver = driver.IdDriver,
+                    CodeSap = driver.CodeSap,
+                    Status = driver.Status,
+                    DocumentDrivinglicenseFrontal = driver.DocumentDrivinglicenseFrontal,
+                    DocumentDrivinglicenseBack = driver.DocumentDrivinglicenseBack,
+
+                    IsAuthenticated = true,
+                    Token = new JwtSecurityTokenHandler().WriteToken(securityToken),
+                    Expiracion = expiracion,
+
+                };
+
+            }
+
+            return new ResponseAuth()
+            {
+                User = user,
+                Roles = (List<string>)roles,
+                IdDriver = driver.IdDriver,
+                CodeSap = driver.CodeSap,
+                Status = driver.Status,
+                DocumentDrivinglicenseFrontal = driver.DocumentDrivinglicenseFrontal,
+                DocumentDrivinglicenseBack = driver.DocumentDrivinglicenseBack,
+                IsAuthenticated = true,
+                Token = new JwtSecurityTokenHandler().WriteToken(securityToken),
+                Expiracion = expiracion,
+
+            };
         }
 
         private ResponseAuth ContructToken(CredentialsUser credentialsUser)

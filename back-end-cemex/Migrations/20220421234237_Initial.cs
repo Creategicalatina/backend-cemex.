@@ -233,7 +233,8 @@ namespace back_end_cemex.Migrations
                     CodeSap = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     DocumentDrivinglicenseFrontal = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DocumentDrivinglicenseBack = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DocumentDrivinglicenseBack = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DocumentSecurityCard = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -260,11 +261,11 @@ namespace back_end_cemex.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1b6ab8e5-44e9-428f-9677-6cbb72710a3f", "409d66f6-9c26-43bf-b838-1b99fc58ecb9", "AdminLogis", "ADMINLOGIS" },
-                    { "29d35d01-2005-43a5-9a7b-1f77a34e25d2", "affcc9bb-ad42-4800-9298-6a52ebb5750b", "CemexAdminLogis", "CEMEXADMINLOGIS" },
-                    { "2f94f9e4-e0e3-4207-b559-3eee8b8e0c1d", "781709e3-e547-4fd7-b05a-35316ffbaaac", "Driver", "DRIVER" },
-                    { "c0274112-69c0-4c88-a24a-aebc709a989f", "4da4c64c-8299-4d55-8db5-88f5c8e7f780", "PoweUser", "POWERUSER" },
-                    { "ed45a06c-16a5-4d19-9d5e-38f7762b3111", "422fba57-ef0f-42d1-9ee6-e320d99a1e09", "ManTruck", "MANTRUCK" }
+                    { "88e9b834-09d7-4d50-852d-3ff69fbd64eb", "0bd43162-0559-47ad-a20b-b5c8ff6e87ca", "ManTruck", "MANTRUCK" },
+                    { "b45bf238-a642-4263-acdc-24a17200412c", "f9c82ef3-06dd-4436-a6f0-729017a20e2e", "CemexAdminLogis", "CEMEXADMINLOGIS" },
+                    { "c316fdc1-7614-436b-836c-6e6234cd660f", "9c5fb206-7b72-4824-aa46-0c4ed0e699a2", "Driver", "DRIVER" },
+                    { "e80631fd-2743-46a2-8c99-4902d42d4002", "15339a7c-9ab8-4413-9a43-948a9d4f1e87", "AdminLogis", "ADMINLOGIS" },
+                    { "f78da2e2-f68b-4528-be9c-f0795098e66c", "8df2b7cc-49ed-456a-a330-f9e5dd9b5d27", "PoweUser", "POWERUSER" }
                 });
 
             migrationBuilder.InsertData(

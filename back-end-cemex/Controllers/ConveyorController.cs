@@ -190,6 +190,23 @@ namespace back_end_cemex.Controllers
             var urlDocumentIndetityCardFrontal = "";
             var urlDocumentIndetityCardBack = "";
 
+            var urlDocumentSecurityCard = "";
+
+            /*=============================================
+              GUARDAMOS EL CARNE DE SEGURIDAD
+             =============================================*/
+            if (conveyorManTruck.DocumentSecurityCard != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await conveyorManTruck.DocumentSecurityCard.CopyToAsync(memoryStream);
+                    var contenido = memoryStream.ToArray();
+                    var extension = Path.GetExtension(conveyorManTruck.DocumentSecurityCard.FileName);
+                    urlDocumentSecurityCard = await storageArchives.SaveArchive(contenido, $"security-card-{conveyorManTruck.FirstName}-{conveyorManTruck.LastName}-{randomString}", extension,
+                        contenedor, conveyorManTruck.DocumentSecurityCard.ContentType);
+                }
+            }
+
             /*=============================================
               GUARDAMOS EL DOCUMENTO DE LICENCIA FRONTAL
              =============================================*/
@@ -322,6 +339,7 @@ namespace back_end_cemex.Controllers
                         Status = false,
                         DocumentDrivinglicenseFrontal = urlDocumentDrivingLinceseFrontal,
                         DocumentDrivinglicenseBack = urlDocumentDrivingLinceseBack,
+                        DocumentSecurityCard = urlDocumentSecurityCard,
                     };
                     context.Add(driver);
                     await context.SaveChangesAsync();

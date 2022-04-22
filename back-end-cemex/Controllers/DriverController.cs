@@ -59,6 +59,23 @@ namespace back_end_cemex.Controllers
             var urlDocumentIndetityCardFrontal = "";
             var urlDocumentIndetityCardBack = "";
 
+            var urlDocumentSecurityCard = "";
+
+            /*=============================================
+              GUARDAMOS EL CARNE DE SEGURIDAD
+             =============================================*/
+            if (driverCreationDTO.DocumentSecurityCard != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await driverCreationDTO.DocumentSecurityCard.CopyToAsync(memoryStream);
+                    var contenido = memoryStream.ToArray();
+                    var extension = Path.GetExtension(driverCreationDTO.DocumentSecurityCard.FileName);
+                    urlDocumentSecurityCard = await storageArchives.SaveArchive(contenido, $"security-card-{driverCreationDTO.FirstName}-{driverCreationDTO.LastName}-{randomString}", extension,
+                        contenedor, driverCreationDTO.DocumentSecurityCard.ContentType);
+                }
+            }
+
             /*=============================================
               GUARDAMOS EL DOCUMENTO DE LICENCIA FRONTAL
              =============================================*/
@@ -168,6 +185,7 @@ namespace back_end_cemex.Controllers
                     Status = false,
                     DocumentDrivinglicenseFrontal = urlDocumentDrivingLinceseFrontal,
                     DocumentDrivinglicenseBack = urlDocumentDrivingLinceseBack,
+                    DocumentSecurityCard = urlDocumentSecurityCard
                 };
                 context.Add(driver);
                 await context.SaveChangesAsync();
